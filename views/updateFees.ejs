@@ -1,0 +1,24 @@
+<%- include("partials/adminHeader"); %>
+
+<!-- <h1>This is Finance Page!!</h1> -->
+<form action="/finance" method="POST">
+    <table class="doctors-table">
+        <tr class="table-header">
+            <th style="width: 20%; padding: 20px;">Doctor</th>
+            <th style="width: 20%;">Condition</th>
+            <th style="width: 20%;">Fee</th>
+        </tr>
+        <% tableData.forEach(function(data) { %>
+        <tr class="table-row-data">
+            <td class="table-data"> <%= data.drName %> </td>
+            <td class="table-data"> <%= data.condition %> </td>
+            <td class="table-data" name="no"> <%= data.fee %> <input type="number" style="width: 100px;" name="<%= data.drName %>+ <%= data.condition %>"/></td>
+        </tr>
+        <% }); %>
+
+    </table>
+
+    <button class="btn btn-lg btn-success save-changes-button" type="submit">Save Changes</button>
+</form>
+
+<%- include("partials/footer"); %>

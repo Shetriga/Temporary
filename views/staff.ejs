@@ -1,0 +1,43 @@
+<!-- WE CHECK IF THERE IS A PARAMETER CALLED NAME PASSED TO THE PAGE -->
+<!-- BECAUSE IF SO.. THEN THE REQUEST IS FROM A USER, SO WE LOAD THE USER'S HEADER -->
+<% if(typeof name !== "undefined")  {%>
+  <%- include("partials/userHeader", "name: name"); %>
+  <% } else{ %>
+    <%- include("partials/header"); %>
+  <% } %>
+  <div class="container">
+    <div class="row" style="margin-top: 100px; margin-bottom: 100px;">
+      <div class="col col-lg-4 d-flex justify-content-center" style="margin-bottom: 35px; border-radius: 70%;">
+        <div class="card" style="width: 18rem; text-align: center;">
+          <img src="images/dr_atef.jpg" class="card-img-top mx-auto d-block staff-img" alt="Dr Atef Aboulsoud">
+          <div class="card-body">
+            <h5 class="card-title">أ. د. عاطف أبوالسعود على</h5>
+            <p class="card-text">أستاذ دكتور بكلية الطب جامعة المنوفية, إستشارى أمراض الكبد والجهاز الهضمى والأمراض المتوطنة</p>
+            <a href="#" class="btn btn-primary">السيرة الذاتية</a>
+          </div>
+        </div>
+      </div>
+      <div class="col col-lg-4 d-flex justify-content-center" style="margin-bottom: 35px; border-radius: 70%;">
+        <div class="card" style="width: 18rem; text-align: center;">
+          <img src="images/dr_mervat.jpg" class="card-img-top mx-auto d-block staff-img" alt="Dr Mervat Kamal">
+          <div class="card-body">
+            <h5 class="card-title">د. ميرفت كمال قابيل</h5>
+            <p class="card-text">إستشارى طب وجراحة الأنف والأذن والحنجرة بجامعة السادات</p>
+            <a href="#" class="btn btn-primary">السيرة الذاتية</a>
+          </div>
+        </div>
+      </div>
+      <div class="col col-lg-4 d-flex justify-content-center" style="margin-bottom: 35px; border-radius: 70%;">
+        <div class="card" style="width: 18rem; text-align: center;">
+          <img src="images/dr_ahmed.jpg" class="card-img-top mx-auto d-block staff-img" alt="Dr Ahemd Atef">
+          <div class="card-body">
+            <h5 class="card-title">د. أحمد عاطف أبوالسعود</h5>
+            <p class="card-text">إستشارى طب وجراحة الأنف والأذن والحنجرة بجامعة السادات</p>
+            <a href="/drAhmedAtef" class="btn btn-primary">السيرة الذاتية</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<%- include("partials/footer"); %>

@@ -1,0 +1,57 @@
+<%- include("partials/adminHeader"); %>
+
+<form action="/updateData" method="post" id="formId">
+    <div class="appointment-details container">
+        <div class="box">
+            <h1 class="box-heading">Appointment Details</h1>
+        </div>
+
+        <div class="row row-details">
+            <div class="col col-6 form-floating">
+                <input style="font-weight: bold;" name="updatePatientName" type="text" class="form-control" required value="<%= app.patientName %>">
+                <label style="padding-left: 5%;" for="fName">Patient Name</label>
+            </div>
+            <div class="col col-6 form-floating">
+                <input style="font-weight: bold;" name="updateDoctor" type="text" class="form-control" required value="<%= app.doctor %>">
+                <label style="padding-left: 5%;" for="fName">Doctor</label>
+            </div>
+        </div>
+
+        <div class="row row-details">
+            <div class="col col-6 form-floating">
+                <input style="font-weight: bold;" name="updateAge" type="text" class="form-control" required value="<%= app.age %>">
+                <label style="padding-left: 5%;" for="fName">Patient Age</label>
+            </div>
+            <div class="col col-6 form-floating">
+                <input style="font-weight: bold;" name="updatePhone" type="text" class="form-control" required value="<%= app.phone %>">
+                <label style="padding-left: 5%;" for="fName">Patient Phone</label>
+            </div>
+        </div>
+
+        <div class="row row-details">
+            <div class="col col-6 form-floating">
+                <input style="font-weight: bold;" name="updateCondition" type="text" class="form-control" required value="<%= app.condition %>">
+                <label style="padding-left: 5%;" for="fName">Condition</label>
+            </div>
+            <div class="col col-6 form-floating">
+                <input style="font-weight: bold;" name="updateFee" type="text" class="form-control" required value="<%= app.fee %>">
+                <label style="padding-left: 5%;" for="fName">Fee</label>
+            </div>
+        </div>
+
+        <div class="row row-details">
+            <div class="col col-6 form-floating">
+                <input style="font-weight: bold;" name="updateDate" type="text" class="form-control" required value="<%= app.date %>">
+                <label style="padding-left: 5%;" for="fName">Date</label>
+            </div>
+            <div class="col col-6 form-floating">
+                <input style="font-weight: bold;" name="updateTime" type="text" class="form-control" required value="<%= app.time %>">
+                <label style="padding-left: 5%;" for="fName">Time</label>
+            </div>
+        </div>
+        
+        <button class="btn btn-lg btn-outline-primary" type="submit" style="float: right; margin-right: 2%; width: 20%;" name="updateDetails" value="<%= app.id %>"><i class="fa-solid fa-file-medical"></i> Update</button>
+    </div>
+</form>
+
+<%- include("partials/footer"); %>

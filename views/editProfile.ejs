@@ -1,0 +1,93 @@
+<%- include("partials/userHeader", "name: name"); %>
+
+<script>
+    $(document).ready(function(){
+        $("#formId").submit(function(event) {
+            $("#operation").val("update");
+            swal({
+                title: "Profile Updated",
+                icon: "success",
+                text: "Now you are being redirected to your home page...",
+                buttons: false,
+                dangerMode: false,
+            })
+
+            var form = this;
+            event.preventDefault();
+            setTimeout(() => {
+                form.submit();
+            }, 2500);
+        });
+    });
+</script>
+
+<div class="body-profile">
+    <form id="formId" action="/editProfile" method="post">
+        <input type="text" style="visibility: hidden; position: absolute;" name="button" id="operation">
+        <div class="container">
+            <div class="row row-gutters">
+                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="account-settings">
+                                <div class="user-profile">
+                                    <div class="user-avatar">
+                                        <img src="images/user_logo.jpg" alt="User_Logo">
+                                    </div>
+                                    <h5 class="user-name"> <%= uName %> </h5>
+                                    <h6 class="user-email"> <%= email %> </h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="row row-gutters row-gutters-profile">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <h6 class="mb-2 text-primary">Personal Details</h6>
+                                </div>
+
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="fullName">Full Name</label>
+                                        <input required type="text" class="form-control" name="inputFullName" id="fullName" placeholder="Enter Full Name" value="<%= name %>">
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="eMail">E-Mail</label>
+                                        <input required type="email" class="form-control" name="inputEmail" id="eMail" placeholder="Enter E-Mail" value="<%= email %>">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row row-gutters row-gutters-profile">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="phone">Phone Number</label>
+                                        <input required type="tel" class="form-control" name="inputPhone" id="phone" placeholder="Enter Phone Number" value="<%= phone %>">
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="bday">Age</label>
+                                        <input required type="text" class="form-control" name="inputAge" id="age" value="<%= age %>">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-lg btn-primary save-changes-btn" name="button" type="submit" value="update">Save Changes</button>
+            <a href="/loggedInUser"><button class="btn btn-lg btn-secondary save-changes-btn" name="button" type="button" value="noUpdate">Cancel</button></a>
+        </div>
+    </form>
+</div>
+
+<%- include("partials/footer"); %>

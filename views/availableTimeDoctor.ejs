@@ -1,0 +1,59 @@
+<%- include("partials/adminHeader"); %>
+
+<script>
+    $(document).ready(function(){
+      // GET THE DATE OF TODAY TO DISABLE PAST DATES FROM BEING SELECTED
+      var today = new Date();
+      var dd = String(today.getDate()).padStart(2, '0');
+      var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+      var yyyy = today.getFullYear();
+  
+      today = yyyy + '-' + mm + '-' + dd;
+      $("#dateId").attr("min", today);
+  
+      $("#dateId").on("change",function(){
+        // GET THE DAY INDEX TO SEE IF THE USER HAS CHOSEN A FRIDAY, FRIDAY INDEX IS 5
+        var date = $(this).val();
+        var dayIndex = new Date(date).getDay();
+        
+        if (dayIndex === 5) {
+          $("#dateId").css("border", "solid 1px red");
+          $("#dateId").css("color", "red");
+          $("#submitBtn").prop("disabled", true);
+        } else {
+          $("#dateId").css("border", "solid 1px lightgrey");
+          $("#dateId").css("color", "black");
+          $("#submitBtn").prop("disabled", false);
+        }
+      });
+    });
+  </script>
+
+<div class="box">
+    <h1 class="box-heading">المواعيد المتاحة للحجز</h1>
+</div>
+
+<form action="/availableTimeDoctor" method="post">
+    <div class="container" style="margin-bottom: 150px;">
+
+        <div style="direction: rtl;">
+            <label style="font-size: 2rem; font-weight: bold;" for="dateId">التاريخ:</label>
+            <input style="margin-bottom: 50px; font-size: 1.5rem; font-weight: bold;" type="date" id="dateId" name="date" required>
+        </div>
+
+        <fieldset style="font-size: 2rem; font-weight: bold; direction: rtl; margin-bottom: 50px;" aria-required="true">
+            <input style="width: 35px; height: 35px;" type="radio" name="drName" value="Dr. Ahmed Atef" id="one" required>
+            <label style="margin: 20px 0 20px 20px;" for="one">د/ أحمد عاطف</label><br>
+            <input style="width: 35px; height: 35px;" type="radio" name="drName" value="Dr. Atef Aboulsoud" id="two">
+            <label style="margin: 20px 0 20px 20px;" for="one">أ.د/ عاطف أبوالسعود</label><br>
+            <input style="width: 35px; height: 35px;" type="radio" name="drName" value="Dr. Mervat Kabil" id="three">
+            <label style="margin: 20px 0 20px 20px;" for="one">د/ ميرفت كمال</label><br>
+        </fieldset>
+
+        <div style="text-align: center;">
+            <button style="width: 40%;" class="btn btn-lg btn-primary" id="submitBtn" type="submit">Submit</button>
+        </div>
+    </div>
+</form>
+
+<%- include("partials/footer"); %>

@@ -1,0 +1,87 @@
+<%- include("partials/adminHeader"); %>
+
+<script>
+
+    function none(str) {
+        // alert(str);
+
+        swal({
+            title: "Delete Appointment?",
+            text: "Once deleted, it cannot be recovered!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then( (choose) => {
+            if (choose) {
+                swal({
+                    title: "Appointment Deleted!",
+                    icon: "success",
+                    text: "Successfully deleted The Appointment",
+                    buttons: false,
+                    dangerMode: false,
+                })
+                setTimeout(() => {
+                    $("#formId").attr("action", "/deleteAdminCountedAppointment/" + str);
+                    $("#formId").submit();
+                }, 1500);
+            }
+        })
+    };
+
+    $(document).ready( () => {
+
+        $("#formId").attr("action", "/finance/today");
+
+        const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+        // alert(new Date().getDay());
+        const dayIndex = new Date().getDay();
+
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+        today = yyyy + '-' + mm + '-' + dd;
+
+        $(".box-heading").text(weekday[dayIndex]);
+        $(".box-text").text(today);
+
+    });
+
+</script>
+
+<div class="box">
+    <h1 class="box-heading"></h1>
+    <p class="box-text" style="font-size: 2rem; padding-bottom: 15px;"></p>
+</div>
+
+<form action="/finance/today" method="post" id="formId">
+    <table class="appointment-table">
+        <tr class="table-header">
+            <th class="table-header-data" style="width: 2%;">No.#</th>
+            <th style="font-size: 1.2rem; width: 5%;">Delete</th>
+            <th style="font-size: 1.2rem; width: 10%;">Time</th>
+            <th style="font-size: 1.2rem; width: 15%;">Patient Name</th>
+            <th style="font-size: 1.2rem; width: 15%;">Doctor Name</th>
+            <th style="font-size: 1.2rem; width: 15%;">Condition</th>
+            <th style="font-size: 1.2rem; width: 15%;">Fee</th>
+            <th style="font-size: 1.2rem; width: 15%;">Details</th>
+        </tr>
+        <% let counter = 1; %>
+        <% apps.forEach(function(app) { %>
+        <tr class="table-row-data">
+            <td class="table-data"> <%= counter %> </td>
+            <td class="table-data"><i onclick="none('<%= app.id %>')" class="delete-icon fa-solid fa-trash"></i></td>
+            <td class="table-data"> <%= app.time %> </td>
+            <td class="table-data"> <%= app.patientName %> </td>
+            <td class="table-data"> <%= app.doctor %> </td>
+            <td class="table-data"> <%= app.condition %> </td>
+            <td class="table-data"> <%= app.fee %> </td>
+            <td class="table-data"><button class="btn btn-outline-primary" type="submit" name="buttonDetails" value="<%= app.id %>"><i class="fa-solid fa-file-medical"></i> Details...</button>  </td>
+            <% counter = counter + 1; %>
+        </tr>
+        <% }); %>
+</form>
+    
+</table>
+
+<%- include("partials/footer"); %>

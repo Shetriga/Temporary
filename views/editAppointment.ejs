@@ -1,0 +1,97 @@
+<%- include("partials/adminHeader"); %>
+
+<form action="/editAppointment" id="formId" method="POST">
+  <input type="text" name="appId" value="<%= appId %>" style="visibility: hidden; position: absolute;">
+
+    <div class="container" style="margin-top: 40px;">
+      <div class="row">
+        <div class="col" style="margin:10px 15%;">
+          <input required style="text-align: center; font-weight: bold;" type="text" class="form-control" placeholder="Patient Name" name="patientName" value="<%=name%>">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col" style="margin: 10px 0 10px 15%;">
+          <input required style="font-weight: bold;" type="number" class="form-control" placeholder="Age" name="age" value="<%=age%>">
+        </div>
+        <div class="col" style="margin: 10px 15% 10px 0;">
+          <input required style="font-weight: bold;" type="tel" class="form-control" placeholder="Phone Number" name="phone" value="<%=phone%>">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col" id="doctorSelect" onchange="myFunction()" style="padding: 15px 0 15px 16%; font-weight: bold; font-size: 1.4rem;">
+          <label for="dr-name">Doctor: </label>
+          <select onchange="myFunction()" required style="width: 200px; font-size: 1rem; font-weight: bold; padding: 10px; text-align: center;" class="custom-select custom-select-lg mb-3" name="drName" id="dr-name">
+            <!-- THE VALUE FOR '<select>' CAN ONLY BE PUT LIKE THIS -->
+            <option selected><%= drName %></option>
+            <!-- <option value="Dr. Mervat Kabil">د/ ميرفت قابيل</option>
+            <option value="Dr. Ahmed Atef">د/ أحمد عاطف</option> -->
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col" style="padding: 15px 0 15px 16%; font-weight: bold; font-size: 1.4rem;">
+          <label for="condition">Condition: </label>
+          <select required id="cnd" onchange="showFee()" style="width: 200px; font-size: 1rem; font-weight: bold; padding: 10px; text-align: center;" class="custom-select custom-select-lg mb-3" name="condition" id="condition">
+            <!-- THE VALUE FOR '<select>' CAN ONLY BE PUT LIKE THIS -->
+          <option selected><%= condition %></option>
+          </select>
+        </div>
+      </div>
+      <!-- <div class="row">
+        <div class="col" style="padding: 15px 0 15px 16%;">
+          <label style=" font-weight: bold; font-size: 1.4rem;" for="time">Time: </label>
+          <input style=" font-weight: bold; font-size: 1.4rem;" type="time" min="19:00" max="22:00" id="time" name="appointmentTime" required>
+          <small style="margin-left: 15px;">Working hours from 7pm to 10pm</small>
+        </div>
+      </div> -->
+      <div class="row">
+        <div class="col" style="padding: 15px 0 15px 16%;">
+          <label style="font-size: 1.4rem; font-weight: bold;" for="date">Date: </label>
+          <input style="font-size: 1.4rem; font-weight: bold;" type="date" name="appointmentDate" id="date" value="<%= date %>" required>
+        </div>
+      </div>
+      <div style="text-align: center; margin-bottom: 30px; margin-top: 30px;">
+        <button type="submit" class="btn btn-success btn-lg" id="submitBtn" name="button"> Proceed </button>
+      </div>
+    </div>
+  </form>
+
+  <script>
+
+    function myFunction(){
+        if ($("#doctorSelect").find(":selected").text() === "د/ أحمد عاطف") {
+        $("#cnd").empty();
+        var o = new Option("...", "");
+        var o1 = new Option("كشف", "كشف");
+        var o2 = new Option("إستشارة", "إستشارة");
+        var o3 = new Option("جبس", "gebs");
+        $("#cnd").append(o);
+        $("#cnd").append(o1);
+        $("#cnd").append(o2);
+        $("#cnd").append(o3);
+      } else if ($("#doctorSelect").find(":selected").text() === "د/ ميرفت قابيل") {
+        $("#cnd").empty();
+        var o = new Option("...", "");
+        var o1 = new Option("كشف", "كشف");
+        var o2 = new Option("إستشارة", "إستشارة");
+        var o3 = new Option("غسيل", "ghaseel");
+        $("#cnd").append(o);
+        $("#cnd").append(o1);
+        $("#cnd").append(o2);
+        $("#cnd").append(o3);
+      } else if ($("#doctorSelect").find(":selected").text() === "د/ عاطف أبوالسعود") {
+        $("#cnd").empty();
+        var o = new Option("...", "");
+        var o1 = new Option("كشف", "كشف");
+        var o2 = new Option("إستشارة", "إستشارة");
+        var o3 = new Option("كشف خارجى", "kharegy");
+        $("#cnd").append(o);
+        $("#cnd").append(o1);
+        $("#cnd").append(o2);
+        $("#cnd").append(o3);
+      }
+    }
+    
+  </script>
+
+<%- include("partials/footer"); %>

@@ -1,0 +1,62 @@
+<!-- WE CHECK IF THERE IS A PARAMETER CALLED NAME PASSED TO THE PAGE -->
+<!-- BECAUSE IF SO.. THEN THE REQUEST IS FROM A USER, SO WE LOAD THE USER'S HEADER -->
+<% if(typeof name !== "undefined")  {%>
+    <%- include("partials/userHeader", "name: name"); %>
+    <% } else{ %>
+      <%- include("partials/header"); %>
+    <% } %>
+
+<div class="body-staff">
+
+    <div class="container">
+        <div class="row row-gutters">
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="account-settings">
+                            <div class="user-profile">
+                                <div class="user-avatar">
+                                    <img src="images/dr_ahmed.jpg" alt="Doctor-img">
+                                </div>
+
+                                <h5 class="user-name">دكتور / أحمد عاطف أبوالسعود</h5>
+                            </div>
+                            <div class="about">
+                                <h5>About</h5>
+                                <p style="margin-bottom: 6px;">ماجيستير جراحة العظام جامعة الزقازيق</p>
+                                <p>أخصائى جراحة العظام والمفاصل بهيئة مستشفيات الشرطة</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+                <div class="card h-100">
+                    <div style="text-align: right;" class="card-body">
+                        <h4 class="mb-2 text-primary">الشهادات</h4>
+                        <ul style="line-height: 2.5rem; font-family: 'Readex Pro', sans-serif;" dir="rtl">
+                            <li>بكالوريوس الطب البشرى والجراحة (جامعة مصر للعلوم والتكنولوجيا)</li>
+                            <li>ماجيستير جراحة العظام جامعة الزقازيق</li>
+                        </ul>
+
+                        <h4 style="margin-top: 2.5rem;" class="mb-2 text-primary">المؤهلات المهنية</h4>
+                        <ul style="line-height: 2.5rem; font-family: 'Readex Pro', sans-serif;" dir="rtl">
+                            <li>عمليات الرباط الصليبى وإصابة الملاعب</li>
+                            <li>عمليات غضاريف الركبة بالمنظار</li>
+                            <li>عمليات مناظير الركبة والكاحل والكشف</li>
+                            <li>جراحات العظام والكسور والمفاصل</li>
+                            <li>استبدال مفاصل الحوض</li>
+                            <li>استبدال مفاصل الركبة</li>
+                            <li>خشونة الركبة والمفاصل</li>
+                            <li>علاج الشوكة العظمية</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<%- include("partials/footer"); %>

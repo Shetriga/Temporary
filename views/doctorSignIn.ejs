@@ -1,0 +1,25 @@
+<%- include("partials/header"); %>
+
+<div class="" style="background-color: #eeeeee">
+
+<form style="text-align: center;" class="form-signin" action="/doctorSignIn" method="post">
+
+
+
+    <img style="text-align: center;" src="images/logo1.png" alt="" width="250" height="250"> <br>
+    <a style="margin-bottom: 20px;" class="btn btn-block btn-social btn-google" href="/auth/google" role="button">
+      <i class="fab fa-google"></i>
+      Sign In with Google
+    </a>
+    <label for="inputEmail" class="sr-only">Email address</label>
+    <input type="email" id="inputEmail" class="form-control" placeholder="Doctor Email address" required autofocus name="username">
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" id="inputPassword" class="form-control" placeholder="Doctor Password" required name="password">
+    <div class="checkbox mb-3">
+    </div>
+    <button class="btn btn-lg btn-primary btn-block d-flex justify-content-center" type="submit" style="width: 100%; margin-bottom: 15px;">Sign in</button>
+    <p class="mt-5 mb-3 text-muted">&copy; 2021-2022</p>
+  </form>
+</div>
+
+<%- include("partials/footer"); %>

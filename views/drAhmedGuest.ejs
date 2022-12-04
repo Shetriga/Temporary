@@ -1,0 +1,107 @@
+<%- include("partials/header"); %>
+
+<script>
+
+  var dayIndex; 
+
+  $(document).ready(function(){
+    // GET THE DATE OF TODAY TO DISABLE PAST DATES FROM BEING SELECTED
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    today = yyyy + '-' + mm + '-' + dd;
+    $("#date").attr("min", today);
+
+    $("#date").on("change",function(){
+      // GET THE DAY INDEX TO SEE IF THE USER HAS CHOSEN A FRIDAY, FRIDAY INDEX IS 5
+      var date = $(this).val();
+      dayIndex = new Date(date).getDay();
+      
+      if (dayIndex === 5) {
+        $("#date").css("border", "solid 1px red");
+        $("#date").css("color", "red");
+        $("#workingDays").css("color", "red");
+        $("#submitBtn").prop("disabled", true);
+      } else {
+        $("#date").css("border", "solid 1px lightgrey");
+        $("#date").css("color", "black");
+        $("#workingDays").css("color", "black");
+        if($("#phone").val().length === 11) {
+          $("#submitBtn").prop("disabled", false);
+        }
+      }
+    });
+  });
+
+  function checkPhone(){
+    if($("#phone").val().length !== 11){
+      swal({
+        text: "Invalid mobile number",
+        icon: "warning",
+      });
+
+      $("#submitBtn").prop("disabled", true);
+      $("#phone").css("border", "solid 1px red");
+    } else {
+      if( dayIndex !== 5 ){
+        $("#submitBtn").prop("disabled", false);
+      }
+      $("#phone").css("border", "solid 1px lightgrey");
+    }
+  }
+</script>
+
+<form action="/drAhmedGuest" id="formId" method="POST">
+  <div class="box">
+    <h1 class="box-heading">د/ أحمد عاطف </h1>
+  </div>
+
+    <div class="container" style="margin-top: 40px;">
+      <div class="row">
+        <div class="col" style="margin:20px 10%;">
+          <input required style="text-align: center; font-weight: bold;" type="text" class="form-control" placeholder="Patient Name" name="patientName">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col" style="margin: 10px 0 10px 10%;">
+          <input required style="font-weight: bold;" type="number" class="form-control" placeholder="Age" name="age">
+        </div>
+        <div class="col" style="margin: 10px 10% 10px 0;">
+          <input required style="font-weight: bold;" type="tel" id="phone" onfocusout="checkPhone()" class="form-control" placeholder="Phone Number" name="phone">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col" id="doctorSelect" onchange="myFunction()" style="padding: 15px 0 15px 10%; font-weight: bold; font-size: 1.4rem;">
+          <label for="dr-name">Doctor: </label>
+          <select required disabled style="width: 200px; font-size: 1rem; font-weight: bold; padding: 10px; text-align: center;" class="custom-select custom-select-lg mb-3" name="drName" id="dr-name">
+            <option value="Dr. Ahmed Atef">د/ أحمد عاطف</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col" style="padding: 15px 0 15px 10%; font-weight: bold; font-size: 1.4rem;">
+          <label for="condition">Condition: </label>
+          <select required id="cnd" style="width: 200px; font-size: 1rem; font-weight: bold; padding: 10px; text-align: center;" class="custom-select custom-select-lg mb-3" name="condition" id="condition">
+            <option value="">...</option>
+            <option value="كشف">كشف</option>
+            <option value="إستشارة">إستشارة</option>
+            <option value="متابعة عملية">متابعة عملية</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col" style="padding: 15px 0 15px 10%;">
+          <label style="font-size: 1.4rem; font-weight: bold;" for="date">Date: </label>
+          <input style="font-size: 1.4rem; font-weight: bold;" type="date" name="appointmentDate" id="date" required>
+          <small id="workingDays" style="margin-left: 15px;">Working days: [ All days except Fridays ]</small>
+        </div>
+      </div>
+      <div style="text-align: center; margin-bottom: 30px; margin-top: 30px;">
+        <button type="submit" class="btn btn-success btn-lg" id="submitBtn" name="button"> Proceed </button>
+      </div>
+    </div>
+  </form>
+
+<%- include("partials/footer"); %>

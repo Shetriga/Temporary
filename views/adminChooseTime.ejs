@@ -1,0 +1,97 @@
+<%- include("partials/adminHeader"); %>
+
+<script>
+    $(document).ready(function(){
+
+        // STORE THE ARRAY INTO LOCAL ARRAY TO PERFORM OUR OPERATIONS ON IT
+        let tmp1 = "<%= tmpArray %>";
+        var localArray = tmp1.split(",");
+        // alert(localArray[0]);
+
+        // LOOP THROUGH ALL THE td TO SEE WHAT IS AVAILABLE AND WHAT IS NOT
+        $("td").each(function(){
+            var theText = $(this).text().split(" ")[0];
+            var tdId = $(this).attr("id");
+            localArray.forEach(function(el) {
+                // CHECK IF THE td EQUALS THE UNAVAILABLE TIME IN THE ARRAY
+                if (theText == el) {
+                    $("#" + tdId + "").addClass("unselectable");
+                }
+            });
+        });
+
+        $("td").on("click", function(){
+            // $("#appTime").val($(this).text().split(" ")[0]);
+            // $("#formId").submit();
+            if ($(this).hasClass("unselectable")) {
+                swal({
+                    title: "Time Unavailable",
+                    text: "Please choose another time",
+                    icon: "warning",
+                });
+            } else {
+                swal({
+                    title: "Select This Time?",
+                    icon: "info",
+                    text: "You chose the time " + $(this).text().split(" ")[0].toString(),
+                    buttons: ["Cancel", "Confirm"],
+                }).then((choose) => {
+                    if (choose) {
+                        $("#appTime").val($(this).text().split(" ")[0]);
+                        $("#formId").submit(); 
+                    } else {
+                        
+                    }
+                })
+                // $("#appTime").val($(this).text().split(" ")[0]);
+                // $("#formId").submit();
+                // var arr = $(this).text().split(" ");
+                // $("#hdn").val(arr[0]); 
+                // $("#formId").submit();
+            }
+        });
+        
+        // alert("<%= tmpArray.length %>");
+    });
+</script>
+
+<div class="container choose-time-div">
+
+    <div class="box">
+        <h1 class="box-heading"><i class="fa-regular fa-clock"></i> Appointment Time</h1>
+    </div>
+
+    <form action="/adminChooseTime" method="post" id="formId">
+        <div class="time-slots-div">
+            <input id="appTime" type="text" style="position: absolute; visibility: hidden;" name="appointmentTime">
+            <input style="position: absolute; visibility: hidden;" type="text" name="appointmentDate" value="<%= appointmentDate %>">
+            <input style="position: absolute; visibility: hidden;" type="text" name="age" value="<%= age %>">
+            <input style="position: absolute; visibility: hidden;" type="text" name="phone" value="<%= phone %>">
+            <input style="position: absolute; visibility: hidden;" type="text" name="drName" value="<%= drName %>">
+            <input style="position: absolute; visibility: hidden;" type="text" name="condition" value="<%= condition %>">
+            <input style="position: absolute; visibility: hidden;" type="text" name="patientName" value="<%= patientName %>">
+            <table class="choose-time-table">
+                <tr>
+                    <td id="one" onclick="foo()">7:00 -> 7:15</td>
+                    <td id="two" onclick="foo()">7:15 -> 7:30</td>
+                    <td id="three" onclick="foo()">7:30 -> 7:45</td>
+                    <td id="four" onclick="foo()">7:45 -> 8:00</td>
+                </tr>
+                <tr>
+                    <td id="five" onclick="foo()">8:00 -> 8:15</td>
+                    <td id="six" onclick="foo()">8:15 -> 8:30</td>
+                    <td id="seven" onclick="foo()">8:30 -> 8:45</td>
+                    <td id="eight" onclick="foo()">8:45 -> 9:00</td>
+                </tr>
+                <tr>
+                    <td id="nine" onclick="foo()">9:00 -> 9:15</td>
+                    <td id="ten" onclick="foo()">9:15 -> 9:30</td>
+                    <td id="eleven" onclick="foo()">9:30 -> 9:45</td>
+                    <td id="twelve" onclick="foo()">9:45 -> 10:00</td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</div>
+
+<%- include("partials/footer"); %>

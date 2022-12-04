@@ -1,0 +1,14 @@
+<%- include("partials/adminHeader"); %>
+
+<form action="/phoneNumber" method="POST">
+    <div class="row" style="margin: 50px 0; text-align: center; margin-bottom: 50px;">
+        <div class="col" style="margin: 0 35%;">
+            <input required style="font-weight: bold; text-align: center;" type="tel" class="form-control" placeholder="Phone Number" name="phone">
+        </div>
+    </div>
+    <div style="text-align: center; margin-bottom: 50px;">
+        <button type="submit" class="btn btn-lg btn-success">Proceed</button>
+    </div>
+</form>
+
+<%- include("partials/footer"); %>

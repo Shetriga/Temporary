@@ -1,0 +1,94 @@
+<%- include("partials/header"); %>
+
+<script>
+
+  function checkPhone(){
+    if($("#phone").val().length !== 11){
+      swal({
+        text: "Invalid mobile number",
+        icon: "warning",
+      });
+
+      $("#submitBtn").prop("disabled", true);
+      $("#phone").css("border", "solid 1px red");
+    } else {
+      if($("#cpw").val() === $("#pw").val()){
+        $("#submitBtn").prop("disabled", false);
+      }
+      $("#phone").css("border", "solid 1px lightgrey");
+    }
+  }
+
+  $(document).ready(function(){
+    $("#cpw").keyup(function(){
+      if ($("#cpw").val() !== $("#pw").val()) {
+        $("#submitBtn").prop("disabled", true);
+        $("#pw").css("border", "solid 1px red");
+        $("#cpw").css("border", "solid 1px red");
+      } else {
+        if($("#phone").val().length === 11){
+          $("#submitBtn").prop("disabled", false);
+        }
+        $("#pw").css("border", "solid 1px lightgrey");
+        $("#cpw").css("border", "solid 1px lightgrey");
+      }
+    });
+  });
+</script>
+
+<form action="/register" method="post" style="margin-top: 5%; margin-bottom: 10%; height: 80%;">
+
+    <div class="container">
+
+
+      <div class="row">
+
+        <div class="col form-floating" style="margin: 10px 0 10px 15%;">
+          <input style="font-weight: bold;" type="text" class="form-control" required placeholder="First Name" id="fName" name="fName" value="">
+          <label style="padding-left: 5%;" for="fName">First Name</label>
+        </div>
+        <div class="col form-floating" style="margin: 10px 15% 10px 0;">
+          <input style="font-weight: bold;" type="text" class="form-control" id="lName" required placeholder="Last Name" name="lName" value="">
+          <label style="padding-left: 5%;" for="lName">Last Name</label>
+        </div>
+
+      </div>
+      <div class="row">
+
+        <div class="col form-floating" style="margin: 10px 0 10px 15%;">
+          <input style="font-weight: bold;" type="date" class="form-control" required placeholder="BirthDay" name="birthDay" id="bDay">
+          <label style="padding-left: 5%;" for="bDay">Birthday</label>
+          <!-- <input type="number" class="form-control" required placeholder="Age" name="age" value=""> -->
+        </div>
+        <div class="col form-floating" style="margin: 10px 15% 10px 0;">
+          <input style="font-weight: bold;" onfocusout="checkPhone()" type="tel" class="form-control" required placeholder="Phone Number" name="phone" id="phone" value="">
+          <label style="padding-left: 5%;" for="phone"><i class="fa-brands fa-whatsapp"></i> Phone Number</label>
+        </div>
+
+      </div>
+      <div class="row">
+
+        <div class="col form-floating" style="margin: 10px 15%;">
+          <input style="font-weight: bold;" type="email" class="form-control" required placeholder="Email Address" id="email" name="username" value="">
+          <label style="padding-left: 3%;" for="email">E-mail Address</label>
+        </div>
+      </div>
+      <div class="row">
+
+        <div class="col form-floating" style="margin: 10px 15%;">
+          <input style="font-weight: bold;" type="password" class="form-control" required placeholder="Password" id="pw" name="password">
+          <label style="padding-left: 3%;" for="pw">Password</label>
+        </div>
+      </div>
+      <div class="row">
+
+        <div class="col form-floating" style="margin: 10px 15%;">
+          <input style="font-weight: bold;" type="password" class="form-control" required placeholder="Confirm Password" id="cpw" name="cPassword" value="">
+          <label style="padding-left: 3%;" for="cpw">Confirm Password</label>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary" name="button" style="margin-left: 15%; margin-top: 20px;" id="submitBtn">Register</button>
+    </div>
+  </form>
+
+<%- include("partials/footer"); %>

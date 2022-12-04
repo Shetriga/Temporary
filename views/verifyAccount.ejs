@@ -1,0 +1,24 @@
+<%- include("partials/header"); %>
+
+<form class="" action="/verifyAccount" method="post">
+  <div class="container-verification">
+      <h1 class="verify-account-header">Verify your account</h1>
+      <h5 class="verify-account-text">
+        Please type the verification code that we sent to <strong><em><%= username %></em></strong> In order to
+        activate your account.
+      </h5>
+
+      <div class="row">
+        <div class="col-8 col-centered" style="float: none; margin: auto; text-align: center;">
+          <input type="text" class="form-control" style="text-align: center;" name="code" placeholder="Please Type">
+        </div>
+      </div>
+
+      <button style="margin: 20px 5px;" type="submit" class="btn btn-lg btn-primary" value="Verify" name="button">Verify</button>
+      <span style="font-size: 1.5rem; color: #00000f;">or</span>
+      <button style="margin: 20px 5px;" type="submit" class="btn btn-lg btn-outline-success" value="resend" name="button">Resend Code</button>
+      <input type="text" name="username" style="visibility: hidden; position: absolute;" value=<%= username %>>
+  </div>
+</form>
+
+<%- include("partials/footer"); %>

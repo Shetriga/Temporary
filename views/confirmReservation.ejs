@@ -1,0 +1,14 @@
+<%- include("partials/userHeader", "name: name"); %>
+
+<form action="confirmReservation" method="post">
+    <div style="margin: 3% auto; text-align: center; background-image: linear-gradient(to bottom right, #21d9b7, #18b598);" class="container">
+        <div style="padding-top: 100px; padding-bottom: 100px;">
+            <h1 style="color: white; margin: auto 25%;">Your Appointment has been successfully booked!</h1>
+            <h4 style="color: white; margin: 20px 5% auto 5%;">You can find the details of your appointments in "My Appointments" Section</h4>
+            <i class="animate__animated animate__heartBeat fa-regular fa-circle-check fa-10x" style="display: block; margin: 50px auto; color: white;"></i>
+            <button name="button" value="okay" style="width: 30%;" class="btn btn-lg btn-success">Great!</button>
+        </div>
+    </div>
+</form>
+
+<%- include("partials/footer"); %>

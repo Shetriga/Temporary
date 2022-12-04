@@ -1,0 +1,149 @@
+<%- include("partials/adminHeader"); %>
+
+<script>
+
+  $(document).ready( () => {
+    // GET THE DATE OF TODAY TO DISABLE PAST DATES FROM BEING SELECTED
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    today = yyyy + '-' + mm + '-' + dd;
+    $("#date").attr("min", today);
+
+    $("#date").on("change",function(){
+      // GET THE DAY INDEX TO SEE IF THE USER HAS CHOSEN A FRIDAY, FRIDAY INDEX IS 5
+      var date = $(this).val();
+      var dayIndex = new Date(date).getDay();
+      
+      if (dayIndex === 5) {
+        $("#date").css("border", "solid 1px red");
+        $("#date").css("color", "red");
+        $("#workingDays").css("color", "red");
+        $("#submitBtn").prop("disabled", true);
+      } else {
+        $("#date").css("border", "solid 1px lightgrey");
+        $("#date").css("color", "black");
+        $("#workingDays").css("color", "black");
+        $("#submitBtn").prop("disabled", false);
+      }
+    });
+  }); 
+
+function myFunction() {
+    // alert($("#doctorSelect").find(":selected").text());
+
+    if ($("#doctorSelect").find(":selected").text() === "د/ أحمد عاطف") {
+      $("#tmp").empty();
+      var o = new Option("...", "");
+      var o1 = new Option("كشف", "كشف");
+      var o2 = new Option("إستشارة", "إستشارة");
+      var o3 = new Option("متابعة عملية", "متابعة عملية");
+      $("#tmp").append(o);
+      $("#tmp").append(o1);
+      $("#tmp").append(o2);
+      $("#tmp").append(o3);
+    } else if ($("#doctorSelect").find(":selected").text() === "د/ ميرفت قابيل") {
+      $("#tmp").empty();
+      var o = new Option("...", "");
+      var o1 = new Option("كشف", "كشف");
+      var o2 = new Option("إستشارة", "إستشارة");
+      var o3 = new Option("غسيل", "غسيل");
+      var o4 = new Option("جهاز", "جهاز");
+      var o5 = new Option("إستخراج جسم غريب بالأنف أو بالأذن", "إستخراج جسم غريب بالأنف أو بالأذن");
+      $("#tmp").append(o);
+      $("#tmp").append(o1);
+      $("#tmp").append(o2);
+      $("#tmp").append(o3);
+      $("#tmp").append(o4);
+      $("#tmp").append(o5);
+    } else if ($("#doctorSelect").find(":selected").text() === "د/ عاطف أبوالسعود") {
+      $("#tmp").empty();
+      var o = new Option("...", "");
+      var o1 = new Option("كشف", "كشف");
+      var o2 = new Option("إستشارة", "إستشارة");
+      var o3 = new Option("كشف خارجى", "كشف خارجى");
+      var o4 = new Option("جهاز", "جهاز");
+      var o5 = new Option("أشعة", "سونار");
+      $("#tmp").append(o);
+      $("#tmp").append(o1);
+      $("#tmp").append(o2);
+      $("#tmp").append(o3);
+      $("#tmp").append(o4);
+      $("#tmp").append(o5);
+    } else if ($("#doctorSelect").find(":selected").text() === "د/ إسماعيل توفيق"){
+      $("#tmp").empty();
+      var o = new Option("...", "");
+      var o1 = new Option("كشف", "كشف");
+      var o2 = new Option("إستشارة", "إستشارة");
+      var o3 = new Option("متابعة عملية", "متابعة عملية");
+      $("#tmp").append(o);
+      $("#tmp").append(o1);
+      $("#tmp").append(o2);
+      $("#tmp").append(o3);
+    } else if ($("#doctorSelect").find(":selected").text() === "...") {
+      $("#tmp").empty();
+      var o = new Option("...", "");
+      $("#tmp").append(o);
+    }
+  }
+
+</script>
+
+<form action="/adminPhoneReservation" id="formId" method="POST">
+    <div class="container" style="margin-top: 40px;">
+  
+  
+      <div class="row">
+  
+        <div class="col" style="margin:10px 15%;">
+          <input required style="text-align: center; font-weight: bold;" type="text" class="form-control" placeholder="Patient Name" name="patientName">
+        </div>
+  
+      </div>
+      <div class="row">
+  
+        <div class="col" style="margin: 10px 0 10px 15%;">
+          <input required style="font-weight: bold;" type="tel" class="form-control" placeholder="Age" name="age">
+        </div>
+        <div class="col" style="margin: 10px 15% 10px 0;">
+          <input required style="font-weight: bold;" type="tel" class="form-control" placeholder="Phone Number" name="phone">
+        </div>
+  
+      </div>
+      <div class="row">
+  
+        <div class="col" id="doctorSelect" onchange="myFunction()" style="padding: 15px 0 15px 16%; font-weight: bold; font-size: 1.4rem;">
+          <label for="dr-name">Doctor: </label>
+          <select required style="width: 200px; font-size: 1rem; font-weight: bold; padding: 10px; text-align: center;" class="custom-select custom-select-lg mb-3" name="drName" id="dr-name">
+            <option value="">...</option>
+            <option value="Dr. Atef Aboulsoud">د/ عاطف أبوالسعود</option>
+            <option value="Dr. Mervat Kabil">د/ ميرفت قابيل</option>
+            <option value="Dr. Ismail Tawfik">د/ إسماعيل توفيق</option>
+            <option value="Dr. Ahmed Atef">د/ أحمد عاطف</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col" style="padding: 15px 0 15px 16%; font-weight: bold; font-size: 1.4rem;">
+          <label for="condition">Condition: </label>
+          <select required id="tmp" onchange="showFee()" style="width: 200px; font-size: 1rem; font-weight: bold; padding: 10px; text-align: center;" class="custom-select custom-select-lg mb-3" name="condition" id="condition">
+            <option value="">...</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col" style="padding: 15px 0 15px 16%; font-weight: bold; font-size: 1.4rem;">
+          <label for="date">Date: </label>
+          <input type="date" name="appointmentDate" id="date" required>
+          <small id="workingDays" style="margin-left: 15px;">Working days: [ All days except Fridays ]</small>
+        </div>
+      </div>
+      <div style="text-align: center; margin-bottom: 30px;">
+        <button type="submit" id="submitBtn" class="btn btn-success btn-lg" name="button"> Proceed </button>
+      </div>
+    </div>
+  </form>
+
+<%- include("partials/footer"); %>

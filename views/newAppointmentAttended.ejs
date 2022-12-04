@@ -1,0 +1,74 @@
+<%- include("partials/adminHeader"); %>
+
+<div class="box" id="heading">
+    <h1 class="box-heading">New Appointment</h1>
+</div>
+
+<form action="/newAppointmentAttended" method="POST">
+  <input type="text" name="username" value="<%= username %>" style="visibility: hidden; position: absolute;" id="">
+  <input type="text" name="patientId" value="<%= pId %>" style="visibility: hidden; position: absolute;" id="">
+  <input type="text" name="fee" value="<%= fee %>" style="visibility: hidden; position: absolute;" id="">
+    <div class="container" style="margin-top: 40px;">
+
+
+    <div class="row">
+
+      <div class="col" style="margin:10px 15%;">
+        <input required style="text-align: center; font-weight: bold;" type="text" class="form-control" placeholder="Patient Name" name="patientName" value="<%=name%>">
+      </div>
+
+    </div>
+    <div class="row">
+
+      <div class="col" style="margin: 10px 0 10px 15%;">
+        <input required style="font-weight: bold;" type="tel" class="form-control" placeholder="Age" name="age" value="<%=age%>">
+      </div>
+      <div class="col" style="margin: 10px 15% 10px 0;">
+        <input required style="font-weight: bold;" type="tel" class="form-control" placeholder="Phone Number" name="phone" value="<%=phone%>">
+      </div>
+
+    </div>
+    <div class="row">
+
+      <div class="col" style="padding: 15px 0 15px 16%; font-weight: bold; font-size: 1.4rem;">
+        <label for="dr-name">Doctor: </label>
+        <select style="font-size: 1rem; font-weight: bold; padding: 10px; text-align: center;" class="custom-select custom-select-lg mb-3" name="drName" id="dr-name">
+          <!-- THE VALUE FOR '<select>' CAN ONLY BE PUT LIKE THIS -->
+          <option selected><%= drName %></option>
+          <!-- <option value="Dr. Atef Aboulsoud">د/ عاطف أبوالسعود</option>
+          <option value="Dr. Mervat Kabil">د/ ميرفت قابيل</option>
+          <option value="Dr. Ahmed Atef">د/ أحمد عاطف</option> -->
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col" style="padding: 15px 0 15px 16%; font-weight: bold; font-size: 1.4rem;">
+        <label for="condition">Condition: </label>
+        <select style="font-size: 1rem; font-weight: bold; padding: 10px; text-align: center;" class="custom-select custom-select-lg mb-3" name="condition" value="<%= condition %>" id="condition">
+          <!-- THE VALUE FOR '<select>' CAN ONLY BE PUT LIKE THIS -->
+          <option selected><%= condition %></option>
+          <!-- <option value="">كشف</option>
+          <option value="">إستشارة</option> -->
+        </select>
+      </div>
+    </div>
+    <div class="row">
+
+      <div class="col" style="padding: 15px 0 15px 16%;">
+        <label style=" font-weight: bold; font-size: 1.4rem;" for="time">Time: </label>
+        <input style=" font-weight: bold; font-size: 1.4rem;" type="text" id="time" name="appointmentTime" value="<%= time %>" required>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col" style="padding: 15px 0 15px 16%; font-weight: bold; font-size: 1.4rem;">
+        <label for="date">Date: </label>
+        <input type="date" name="appointmentDate" value="<%= date %>" id="date" required>
+      </div>
+    </div>
+    <div style="text-align: center; margin-bottom: 30px;">
+      <button type="submit" class="btn btn-success btn-lg" name="button"> Proceed </button>
+    </div>
+    </div>
+</form>
+
+<%- include("partials/footer"); %>

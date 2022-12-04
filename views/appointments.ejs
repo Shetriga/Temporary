@@ -1,0 +1,142 @@
+<%- include("partials/adminHeader"); %>
+
+    <div class="box" id="heading">
+        <h1 class="box-heading">Appointments</h1>
+    </div>
+
+    <div class="new-appointment" style="text-align: center; margin: 30px;">
+        <a href="/adminNewAppointment">
+            <button class="btn btn-lg btn-success"><h2><i class="fas fa-plus"></i> New Appointment</h2></button>
+        </a>
+    </div>
+
+    <div class="new-appointment" style="text-align: center; margin: 30px;">
+        <a href="/availableTimeDoctor">
+            <button style="margin-right: 20px;" class="btn btn-lg btn-outline-primary"><h2><i class="fa-regular fa-clock"></i> معرفة المواعيد المتاحة</h2></button>
+        </a>
+        <a href="/adminPhoneReservation">
+            <button style="margin-left: 20px;" class="btn btn-lg btn-outline-info"><h2><i class="fa-solid fa-phone"></i> حجز بالهاتف</h2></button>
+        </a>
+    </div>
+    
+    <!-- <input style="margin-left: 20%;" onclick="today()" type="checkbox" id="todayFilter" name="today-filter" value="">
+    <label for="todayFilter">Today</label> -->
+
+    <div class="container">
+        <form class="row g-4" action="/appointments" method="POST">
+            <div class="col-auto">
+                <input type="time" name="time" class="form-control" id="time" value="<%=sendTime%>">
+            </div>
+            <div class="col-auto">
+                <input type="date" name="date" class="form-control" id="date" value="<%=sendDate%>">
+            </div>
+            <div class="col-auto">
+                <label for="patient-name" class="sr-only"></label>
+                <input value="<%=sendPatientName%>" type="text" name="patientName" class="form-control" id="patient-name" placeholder="Patient Name">
+            </div>
+            <div class="col-auto">
+                <label for="dr-name" class="sr-only"></label>
+                <input value="<%=sendDrName%>" type="text" name="drName" class="form-control" id="dr-name" placeholder="Doctor Name">
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-primary" type="submit">Search</button>
+            </div>
+        </form>
+    </div>
+
+    <form action="/none" id="formId" method="POST">
+
+    <table class="appointment-table">
+        <tr class="table-header">
+            <th class="table-header-data" style="width: 2%;">No.#</th>
+            <th style="font-size: 1.2rem; width: 3%;">Checked</th>
+            <th style="font-size: 1.2rem; width: 5%;">Edit</th>
+            <th style="font-size: 1.2rem; width: 5%;">Delete</th>
+            <th style="font-size: 1.2rem; width: 10%;">Time</th>
+            <th style="font-size: 1.2rem; width: 15%;">Date</th>
+            <th style="font-size: 1.2rem; width: 15%;">Patient Name</th>
+            <th style="font-size: 1.2rem; width: 15%;">Doctor Name</th>
+            <th style="font-size: 1.2rem; width: 15%;">Phone #</th>
+        </tr>
+        <% let counter = 1; %>
+        <% newAppointments.forEach(function(app) { %>
+        <tr class="table-row-data">
+            <td class="table-data"> <%= counter %> </td>
+            <td class="table-data"><input onchange="inputSubmit(this)" id="check" type="checkbox" name="appointmentId" value="<%= app.id %>">  </td>
+            <td class="table-data"> <button style="background-color: transparent; border: none;" name="appointmentId" value="<%= app.id %>" class="edit" type="button"><i class="icon-edit fa-solid fa-pen-to-square"></i></button> </td>
+            <td class="table-data"> <button style="background-color: transparent; border: none;" class="delete" name="appointmentId" value="<%= app.id %>" type="button"><i class="delete-icon fa-solid fa-trash"></i></button> </td>
+            <td class="table-data"> <%= app.time %> </td>
+            <td class="table-data"> <%= app.date %> </td>
+            <td class="table-data"> <%= app.patientName %> </td>
+            <td class="table-data"> <%= app.doctor %> </td>
+            <td class="table-data"> <%= app.phone %> </td>
+            <% counter = counter + 1; %>
+        </tr>
+        <% }); %>
+        
+    </table>
+
+    </form>
+
+    <script>
+
+        $(document).ready(function() {
+                $(".delete").on("click", function(){
+                // alert("Deleting: " + $(this).val());
+
+                swal({
+                  title: "Are you sure?",
+                  text: "Once deleted, you will not be able to recover this appointment!",
+                  icon: "warning",
+                  buttons: true,
+                  dangerMode: true,
+                }).then((willDelete) => {
+                  if (willDelete) {
+                    swal("Appointment has been deleted!", {
+                      icon: "success",
+                      buttons: false,
+                      dangerMode: false,
+                    });
+                    setTimeout(() => {
+                        $("#formId").attr("action", "/deleteAdminAppointment/" + $(this).val());
+                        $("#formId").attr("method", "post");
+                        $("#formId").submit();
+                        $("#formId").attr("action", "/none");
+                        $("#formId").attr("method", "post");
+                    }, 1000);
+                  }
+                });
+            });
+        });
+
+        $(".edit").on("click", function(){
+            // alert($(this).val());
+            $("#formId").attr("action", "/editAppointment/" + $(this).val());
+            $("#formId").attr("method", "get");
+            $("#formId").submit();
+            $("#formId").attr("action", "/none");
+            $("#formId").attr("method", "post");
+        });
+
+        function inputSubmit(element){
+            $("#formId").submit();
+            setTimeout(() => {
+                element.checked = false;
+            }, 1000);
+        }
+
+        function today() {
+            if (document.getElementById("todayFilter").checked) {
+                // alert("Checked!");
+                window.location.href = "/appointments";
+            } else {
+                alert("Unchecked!");
+            }
+        }
+
+        function checkboxChanged(val) {
+            alert(val);
+        }
+    </script>
+
+<%- include("partials/footer"); %>
